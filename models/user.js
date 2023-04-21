@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("");
-const Admin = sequelize.define(
-  "Admin",
+const User = sequelize.define(
+  "User",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -14,8 +14,11 @@ const Admin = sequelize.define(
       type: DataTypes.STRING,
       unique: true,
     },
-    Password: DataTypes.STRING,
-    is_SuperAdmin: false,
+    password: DataTypes.STRING,
+    isSuperAdmin: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
   },
   {
     timestamps: true,
@@ -23,4 +26,5 @@ const Admin = sequelize.define(
   }
 );
 
-module.exports = Admin;
+module.exports = User;
+
