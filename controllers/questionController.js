@@ -91,5 +91,5 @@ const deleteOneQuestion = async (req, res, next) => {
     getOneQuestion,
     putOneQuestion,
     patchOneQuestion,
-    deleteOneQuestion
+    deleteOneQuestion 
   }

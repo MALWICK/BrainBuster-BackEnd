@@ -12,7 +12,7 @@ const Results = sequelize.define(
     },
     name: DataTypes.STRING,
     attemps: DataTypes.INTEGER,
-    status: DataTypes.STRING,
+    statuses: DataTypes.STRING,
     quizName: DataTypes.STRING,
     questionId: {
       type: DataTypes.INTEGER,
