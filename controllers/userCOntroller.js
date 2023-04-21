@@ -51,7 +51,6 @@ const getOneUser = async (req, res, next) => {
     user = user.dataValues
   
     delete user.password;
-    delete user.apikey
     delete user.deletedAt
     delete user.updatedAt
   
