@@ -12,7 +12,8 @@ const Results = sequelize.define(
     },
     name: DataTypes.STRING,
     attemps: DataTypes.INTEGER,
-    statuses: DataTypes.STRING,
+    earnPoints: DataTypes.INTEGER,
+    quizResult: DataTypes.STRING,
     quizName: DataTypes.STRING,
     questionId: {
       type: DataTypes.INTEGER,
