@@ -1,5 +1,5 @@
 const { DataTypes } = require("sequelize");
-const sequelize = require(".");
+const sequelize = require("../config/dbConfig");
 
 const Quiz = sequelize.define(
   "Quizzes",
@@ -9,22 +9,23 @@ const Quiz = sequelize.define(
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
-      question: DataTypes.STRING,
-      answer: DataTypes.STRING,
-      category: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      quizName: {
-        type: DataTypes.STRING,
-        unique: true,
-        allowNull: false,
-      },
-      adminId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        foreignKey: true,
-      },
+    },
+    question: DataTypes.STRING,
+    answer: DataTypes.STRING,
+    quizLink: DataTypes.STRING,
+    category: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    quizName: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+    },
+    adminId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      foreignKey: true,
     },
   },
   {

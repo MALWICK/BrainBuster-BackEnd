@@ -142,22 +142,24 @@
 
 const UsersController = require("../controllers/usersController");
 
+const usersController = new UsersController();
+
 const auth = require("../middleware/auth");
 
 const router = require("express").Router();
 
-router.post("/login", UsersController.login);
+router.post("/login", usersController.login.bind(usersController));
 
-router.post("/addUser", UsersController.addUser);
+router.post("/addUser", usersController.addUser.bind(usersController));
 
-router.get("/getAllUsers", UsersController.getAllUsers);
+router.get("/getAllUsers", usersController.getAllUsers.bind(usersController));
 
-router.get("/current-user", auth.authToken, UsersController.getCurrentUser);
+/* router.get("/current-user", auth.authToken, usersController.getCurrentUser); */
 
-router.get("/:id", UsersController.getOneUser);
+router.get("/:id", usersController.getOneUser.bind(usersController));
 
-router.put("/:id", UsersController.updateUser);
+router.put("/:id", usersController.updateUser.bind(usersController));
 
-router.delete("/:id", UsersController.deleteUser);
+router.delete("/:id", usersController.deleteUser.bind(usersController));
 
 module.exports = router;

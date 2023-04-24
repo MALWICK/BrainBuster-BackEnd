@@ -1,104 +1,63 @@
-const User = require("../models/users");
-const bcrypt = require("bcrypt");
-const { signToken } = require("../services/jwt");
+const UserService = require("../modules/user.service");
 
-const addUser = async (req, res) => {
-  const { fullName, emailAddress, password } = req.body;
-  if (!fullName || !emailAddress || !password) {
-    res.send("{Missing User Info }");
-    return;
-  }
-  const duplicateUser = await User.findOne({
-    where: {
-      emailAdress: emailAddress,
-    },
-  });
-
-  if (duplicateUser)
-    return res.status(401).send(`user_email: ${emailAddress} already exist`);
-
-  bcrypt.genSalt(5, function (err, salt) {
-    bcrypt.hash(password, salt, async function (err, hash) {
-      if (err) res.status(500).send(err);
-      else {
-        const user = await User.create({
-          firstName,
-          lastName,
-          emailAddress,
-          password: hash,
-        });
-        res.status(200).send(user);
-      }
-    });
-  });
-};
-
-const getAllUsers = async (req, res) => {
-  const allUsers = await User.findAll();
-  res.status(200).send(allUsers);
-};
-
-const getOneUser = async (req, res) => {
-  const user = await User.findByPk(req.params.id);
-
-  if (!user) {
-    res.send(`userID ${req.params.id} does not Exits`);
-    return;
+class UserController {
+  constructor() {
+    this.userService = new UserService();
   }
 
-  res.status(200).send(user);
+  getAllUsers(req, res) {
+    this.userService
+      .getAllUsers()
+      .then((user) => res.status(200).send(user))
+      .catch((err) => res.status(500).send(err));
+  }
 
-  /* user = user.dataValues;
+  getOneUser(req, res) {
+    this.userService
+      .getOneUser(req.params.id)
+      .then((user) => res.status(200).send(user))
+      .catch((err) => res.status(500).send(err));
+  }
 
-  delete user.password;
-  delete user.deletedAt;
-  delete user.updatedAt; */
-};
+  addUser(req, res) {
+    const { fullName, emailAddress, password } = req.body;
 
-const updateUser = async (req, res) => {
-  const { fullName, emailAddress, password } = req.body;
-  await User.update(
-    { fullName, emailAddress, password },
-    { where: { id: req.params.id } }
-  );
-  const user = await User.findByPk(req.params.id);
-  res.status(200).send(user);
-};
-
-const deleteUser = async (req, res) => {
-  await User.destroy({
-    where: { id: req.params.id },
-  });
-  res.send("User dropped!");
-};
-
-const login = async (req, res) => {
-  try {
-    const { emailAddress, password } = req.body;
-
-    const user = await User.findOne({ where: { emailAddress: emailAddress } });
-
-    if (user && (await bcrypt.compare(password, user.password))) {
-      const token = signToken({ user_id: user.id });
-      res.status(200).send({ user, token });
-    } else {
-      res.status(400).send("Invalid Credentials");
+    if (!(fullName && emailAddress && password)) {
+      return res.status(406).send({ message: "Missing User Info" });
     }
-  } catch (err) {
-    console.log(err);
+
+    this.userService
+      .addUser(fullName, emailAddress, password)
+      .then((user) => res.status(201).send(user))
+      .catch((err) => res.status(500).send(err));
   }
-};
 
-const getCurrentUser = (req, res) => {
-  res.send(req.user);
-};
+  updateUser(req, res) {
+    this.userService
+      .updateUser(req.body, req.params.id)
+      .then((updatedUser) => res.status(202).send(updatedUser))
+      .catch((err) => res.status(401).send(err));
+  }
 
-module.exports = {
-  addUser,
-  getAllUsers,
-  getOneUser,
-  updateUser,
-  deleteUser,
-  login,
-  getCurrentUser,
-};
+  deleteUser(req, res) {
+    this.userService
+      .deleteUser(req.params.id)
+      .then(() => res.sendStatus(202))
+      .catch((err) => res.status(500).send(err));
+  }
+
+  login(req, res) {
+    const { emailAddress , password } = req.body;
+
+    if (!(emailAddress && password)) {
+      return res.status(406).send({ message: "Missing User Info" });
+    }
+
+    this.userService
+      .login(emailAddress, password)
+      .then((user) => res.status(201).send(user))
+      .catch((err) => res.status(500).send(err));
+  }
+}
+
+module.exports = UserController;

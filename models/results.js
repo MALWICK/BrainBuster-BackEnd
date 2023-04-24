@@ -1,5 +1,5 @@
 const { DataTypes } = require("sequelize");
-const sequelize = require(".");
+const sequelize = require("../config/dbConfig");
 
 const Results = sequelize.define(
   "Results",
@@ -10,7 +10,7 @@ const Results = sequelize.define(
       autoIncrement: true,
       primaryKey: true,
     },
-    name: DataTypes.STRING,
+    studentName: DataTypes.STRING,
     attemps: DataTypes.INTEGER,
     earnPoints: DataTypes.INTEGER,
     quizResult: DataTypes.STRING,
