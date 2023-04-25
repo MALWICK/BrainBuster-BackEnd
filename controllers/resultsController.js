@@ -1,67 +1,72 @@
-const Result = require("../models/results");
+const ResultService = require("../modules/results.service");
 
-const addResult = async (req, res) => {
-  const { name, attemps, earnPoints, quizResult, quizName, questionId } =
-    req.body;
-
-  if (!name || !attemps || !quizResult || !quizName) {
-    res.send("{ Missing Result Info }");
-    return;
+class ResultController {
+  constructor() {
+    this.resultService = new ResultService();
   }
 
-  const newResult = await Result.create({
-    name,
-    attemps,
-    earnPoints,
-    quizResult,
-    quizName,
-    questionId,
-  });
-
-  res.status(200).send(newResult);
-};
-
-const getAllResults = async (req, res) => {
-  const allResults = await Result.findAll();
-  res.status(200).send(allResults);
-};
-
-const getOneResult = async (req, res) => {
-  const result = await Result.findByPk(req.params.id);
-  if (!result) {
-    res.send(`resultID ${req.params.id} does not Exits`);
-    return;
+  getAllResults(req, res) {
+    this.resultService
+      .getAllResults()
+      .then((result) => res.status(200).send(result))
+      .catch((err) => res.status(500).send(err));
   }
-  res.status(200).send(result);
-};
 
-const updateResult = async (req, res) => {
-  const { name, attemps, earnPoints, quizResult, quizName, questionId } =
-    req.body;
+  getOneResult(req, res) {
+    this.resultService
+      .getOneResult(req.params.id)
+      .then((result) => res.status(200).send(result))
+      .catch((err) => res.status(500).send(err));
+  }
 
-  await Glass.update(
-    { name, attemps, earnPoints, quizResult, quizName, questionId },
-    {
-      where: {
-        id: req.params.id,
-      },
+  addResult(req, res) {
+    const {
+      studentName,
+      attemps,
+      earnPoints,
+      quizResult,
+      quizName,
+      questionId,
+    } = req.body;
+
+    if (
+      !studentName ||
+      !attemps ||
+      !quizResult ||
+      !quizName ||
+      !questionId ||
+      !earnPoints
+    ) {
+      res.send("{ Missing Result Info }");
+      return;
     }
-  );
-  const result = await Result.findByPk(req.params.id);
-  res.status(200).send(result);
-};
 
-const deleteResult = async (req, res) => {
-  await Result.destroy({
-    where: { id: req.params.id },
-  });
-  res.send("Results dropped!");
-};
+    this.resultService
+      .addResult(
+        studentName,
+        attemps,
+        earnPoints,
+        quizResult,
+        quizName,
+        questionId
+      )
+      .then((result) => res.status(201).send(result))
+      .catch((err) => res.status(500).send(err));
+  }
 
-module.exports = {
-  addResult,
-  getAllResults,
-  getOneResult,
-  updateResult,
-  deleteResult,
-};
+  updateResult(req, res) {
+    this.resultService
+      .updateResult(req.body, req.params.id)
+      .then((updatedResult) => res.status(202).send(updatedResult))
+      .catch((error) => res.status(401).send(err));
+  }
+
+  deleteResult(req, res) {
+    this.resultService
+      .deleteResult(req.params.id)
+      .then(() => res.status(200))
+      .catch((err) => res.status(500).send(err));
+  }
+}
+
+module.exports = ResultController;
