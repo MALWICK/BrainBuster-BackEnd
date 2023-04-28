@@ -10,6 +10,7 @@ const swaggerUi = require("swagger-ui-express");
 dotEnv.config();
 
 const usersRouter = require("./routes/usersRoutes");
+const resultsRouter = require("./routes/resultRoutes");
 const relate = require("./models/relationship");
 
 const app = express();
@@ -26,7 +27,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use(cors());
 app.use("/user", usersRouter);
-
+app.use("/result", resultsRouter);
 
 app.use(
   "/api-docs",
