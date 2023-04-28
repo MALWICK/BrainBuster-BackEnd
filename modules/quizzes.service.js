@@ -1,4 +1,4 @@
-const QuizzesRepository = require("../modules/quizzes.repo");
+const QuizzesRepository = require("./quizzes.repo");
 
 class QuizzesService {
   constructor() {
@@ -15,9 +15,16 @@ class QuizzesService {
     return oneQuiz;
   }
 
-  async addQuiz(quiz) {
+  async addQuiz(question, answer, quizLink, category, quizName, UserId) {
     try {
-      const newQuiz = await this.quizRepo.addQuiz(quiz);
+      const newQuiz = await this.quizRepo.addQuiz({
+        question,
+        answer,
+        quizLink,
+        category,
+        quizName,
+        UserId,
+      });
       return newQuiz;
     } catch (error) {
       throw new Error("COULD NOT ADD QUIZ");
@@ -39,9 +46,9 @@ class QuizzesService {
     try {
       await this.quizRepo.deleteQuiz(id);
     } catch (error) {
-        throw new Error("Couldn't delete the quiz")
+      throw new Error("Couldn't delete the quiz");
     }
   }
 }
 
-module.exports= QuizzesService;
+module.exports = QuizzesService;
