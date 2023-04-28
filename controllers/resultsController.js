@@ -34,7 +34,6 @@ class ResultController {
         earnPoints,
         quizResult,
         quizName,
-        questionId
       )
       .then((result) => res.status(201).send(result))
       .catch((err) => res.status(500).send(err));
