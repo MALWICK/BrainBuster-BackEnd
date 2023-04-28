@@ -20,23 +20,9 @@ class ResultController {
   }
 
   addResult(req, res) {
-    const {
-      studentName,
-      attemps,
-      earnPoints,
-      quizResult,
-      quizName,
-      questionId,
-    } = req.body;
+    const { studentName, attemps, earnPoints, quizResult, quizName } = req.body;
 
-    if (
-      !studentName ||
-      !attemps ||
-      !quizResult ||
-      !quizName ||
-      !questionId ||
-      !earnPoints
-    ) {
+    if (!studentName || !attemps || !quizResult || !quizName || !earnPoints) {
       res.send("{ Missing Result Info }");
       return;
     }
