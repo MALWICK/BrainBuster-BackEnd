@@ -1,68 +1,55 @@
-const Quiz = require("../models/quiz");
+const QuizzesService = require("../modules/quizzes.service");
 
-const addQuiz = async (req, res) => {
-  const { question, answer, category, quizName, adminId } = req.body;
-
-  if (!question || !answer || !category || !quizName) {
-    res.send("{Missing Question Information}");
-    return;
+class QuizController {
+  constructor() {
+    this.quizzesService = new QuizzesService();
   }
 
-  const newQuiz = await Quiz.create({
-    question,
-    answer,
-    category,
-    quizName,
-    adminId,
-  });
-  res.status(200).send(newQuiz);
-};
-
-const getAllQuizzes = async (req, res) => {
-  const allQuizzes = await Quiz.findAll();
-  res.status(200).send(allQuizzes);
-};
-
-const getOneQuiz = async (req, res) => {
-  const quiz = await Quiz.findByPk(req.params.id);
-  if (!quiz) {
-    res.send(`QuizID ${req.params.id} does not Exits`);
-    return;
+  getAllQuizzes(req, res) {
+    this.quizzesService
+      .getAllQuizzes()
+      .then((quiz) => res.status(200).send(quiz))
+      .catch((err) => res.status(500).send(err));
   }
-  res.status(200).send(quiz);
-};
 
-const updateQuiz = async (req, res) => {
-  const { question, answer, category, quizName } = req.body;
-  /*  if (!question) {
-    res.send(`CategoryID ${req.params.id} does not Exits`);
-    return;
-  } */
+  getOneQuiz(req, res) {
+    this.quizzesService
+      .then((quiz) => res.status(200).send(quiz))
+      .catch((err) => res.status(500).send(err));
+  }
 
-  await Quiz.update(
-    { question, answer, category, quizName },
-    {
-      where: {
-        id: req.params.id,
-      },
+  addQuiz(req, res) {
+    const { question, answer, quizLink, quizName, adminId } = req.body;
+
+    if (!question || !answer || !quizName || !adminId || !quizLink) {
+      return res.status(401).send({ message: "Missing Quiz Info" });
     }
-  );
 
-  const quiz = await Quiz.findByPk(req.params.id);
-  res.status(200).send(quiz);
-};
+    this.quizzesService
+      .addQuiz({
+        question,
+        answer,
+        quizLink,
+        quizName,
+        adminId,
+      })
+      .then((quiz) => response.status(201).send(quiz))
+      .catch((err) => res.status(500).send(err));
+  }
 
-const deleteQuiz = async (req, res) => {
-  await Quiz.destroy({
-    where: { id: req.params.id },
-  });
-  res.status(200).send("Quiz dropped!");
-};
+  updateQuiz(req, res) {
+    this.quizzesService
+      .updateQuiz(req.body, req.params.id)
+      .then((updatedQuiz) => res.status(202).send(updatedQuiz))
+      .catch((error) => res.status(401).send(error));
+  }
 
-module.exports = {
-  addQuiz,
-  getAllQuizzes,
-  getOneQuiz,
-  updateQuiz,
-  deleteQuiz,
-};
+  deleteQuiz(req, res) {
+    this.quizzesService
+      .deleteQuiz(req.params.id)
+      .then(() => res.status(200))
+      .catch((err) => res.status(500).send(err));
+  }
+}
+
+module.exports = QuizController;

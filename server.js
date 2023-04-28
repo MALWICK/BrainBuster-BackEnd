@@ -11,6 +11,7 @@ dotEnv.config();
 
 const usersRouter = require("./routes/usersRoutes");
 const resultsRouter = require("./routes/resultRoutes");
+const quizRouter = require("./routes/quizzesRoutes")
 const relate = require("./models/relationship");
 
 const app = express();
@@ -28,6 +29,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
 app.use("/user", usersRouter);
 app.use("/result", resultsRouter);
+app.use("/quiz", quizRouter);
 
 app.use(
   "/api-docs",
