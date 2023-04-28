@@ -1,19 +1,19 @@
 const sequelize = require("../config/dbConfig");
-const Quiz = require("./quizzes");
-const Result = require("./results");
-const User = require("./users");
+const quiz = require("./quizzes");
+const result = require("./results");
+const user = require("./users");
 
 function relate() {
   sequelize.sync();
 
-  User.hasMany(Quiz);
-  Quiz.belongsTo(User);
+  user.hasMany(quiz);
+  quiz.belongsTo(user);
 
-  User.hasMany(Result);
-  Result.belongsTo(User);
+  user.hasMany(result);
+  result.belongsTo(user);
 
-  Quiz.hasMany(Result);
-  Result.belongsTo(Quiz);
+  quiz.hasMany(result);
+  result.belongsTo(quiz);
 
   sequelize.sync();
 }

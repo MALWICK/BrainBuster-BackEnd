@@ -9,10 +9,6 @@ class ResultRepository {
     return Result.findByPk(id);
   }
 
-  getOneResult(id) {
-    return Result.findByPk(id);
-  }
-
   addResult(result) {
     return Result.create(result);
   }

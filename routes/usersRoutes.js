@@ -154,7 +154,7 @@ router.post("/addUser", usersController.addUser.bind(usersController));
 
 router.get("/getAllUsers", usersController.getAllUsers.bind(usersController));
 
-/* router.get("/current-user", auth.authToken, usersController.getCurrentUser); */
+router.get("/current-user", auth.authToken, usersController.getCurrentUser);
 
 router.get("/:id", usersController.getOneUser.bind(usersController));
 

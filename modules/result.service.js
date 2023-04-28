@@ -1,4 +1,4 @@
-const ResultRepository = require("../modules/result.repo");
+const ResultRepository = require("./result.repo");
 
 class ResultService {
   constructor() {
@@ -8,10 +8,6 @@ class ResultService {
   async getAllResults() {
     const allResults = await this.resultRepo.getAllResults();
     return allResults;
-  }
-
-  async getResultById(id) {
-    const aResult = await this.resultRepo.getResultById(id);
   }
 
   async getOneResult(id) {
@@ -27,7 +23,6 @@ class ResultService {
         earnPoints,
         quizResult,
         quizName,
-        questionId,
       });
       
 
@@ -41,6 +36,8 @@ class ResultService {
     const result = await this.getResultById(id);
 
     if (!result) throw new Error("RESULT__DOES_NOT_EXIST");
+
+     await this.resultRepo.updateResult(result, id);
 
     const updatedResult = await this.resultRepo.getResultById(id);
 

@@ -53,18 +53,21 @@ class UserService {
     }
   }
 
-  async login(password, emailAddress) {
+  async login(emailAddress, password) {
     try {
       const user = await this.userRepo.getUserByEmail(emailAddress);
 
-      if (user && (await bcrypt.compare(password, user.password))) {
+      const loginInfo = user && (await bcrypt.compare(password, user.password));
+
+      if (loginInfo) {
         const token = signToken({ user_id: user.id });
-        res.status(200).send({ user, token });
-      } else {
-        res.status(400).send("Invalid Credentials");
+        return token;
+      }
+      if (!loginInfo) {
+        return "Email or Password incorrect";
       }
     } catch (err) {
-      throw new Error("COULD_NOT_REGISTER_USER");
+      throw new Error("COULD_NOT_LOGIN_USER");
     }
   }
 }

@@ -36,7 +36,7 @@ class UserController {
     this.userService
       .updateUser(req.body, req.params.id)
       .then((updatedUser) => res.status(202).send(updatedUser))
-      .catch((err) => res.status(401).send(err));
+      .catch((err) => res.status(401).send("id does not exist"));
   }
 
   deleteUser(req, res) {
@@ -47,7 +47,7 @@ class UserController {
   }
 
   login(req, res) {
-    const { emailAddress , password } = req.body;
+    const { emailAddress, password } = req.body;
 
     if (!(emailAddress && password)) {
       return res.status(406).send({ message: "Missing User Info" });
@@ -56,8 +56,12 @@ class UserController {
     this.userService
       .login(emailAddress, password)
       .then((user) => res.status(201).send(user))
-      .catch((err) => res.status(500).send(err));
+      .catch(() => res.status(500).send("Somthing went wrong"));
   }
+
+   getCurrentUser = (req, res) => {
+    res.send(req.user);
+  };
 }
 
 module.exports = UserController;

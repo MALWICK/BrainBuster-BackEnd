@@ -1,4 +1,4 @@
-const ResultService = require("../modules/results.service");
+const ResultService = require("../modules/result.service");
 
 class ResultController {
   constructor() {

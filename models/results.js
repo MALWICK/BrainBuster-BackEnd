@@ -15,10 +15,6 @@ const Results = sequelize.define(
     earnPoints: DataTypes.INTEGER,
     quizResult: DataTypes.STRING,
     quizName: DataTypes.STRING,
-    questionId: {
-      type: DataTypes.INTEGER,
-      foreignKey: true,
-    },
   },
   {
     timestamps: true,
