@@ -12,7 +12,7 @@ class ResultService {
 
   async getOneResult(id) {
     const oneResult = await this.resultRepo.getResultById(id);
-    return oneUser;
+    return oneResult;
   }
 
   async addResult(result) {
@@ -33,9 +33,9 @@ class ResultService {
   }
 
   async updateResult(result, id) {
-    const result = await this.getResultById(id);
+    const getResult = await this.getResultById(id);
 
-    if (!result) throw new Error("RESULT__DOES_NOT_EXIST");
+    if (!getResult) throw new Error("RESULT__DOES_NOT_EXIST");
 
      await this.resultRepo.updateResult(result, id);
 
