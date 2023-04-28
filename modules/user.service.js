@@ -34,10 +34,7 @@ class UserService {
   }
 
   async updateUser(userToEdit, id) {
-    const user = await this.userRepo.getUserById(id);
-
-    if (!user) throw new Error("USER_DOES_NOT_EXIST");
-
+ 
     await this.userRepo.updateUser(userToEdit, id);
 
     const updatedUser = await this.userRepo.getUserById(id);

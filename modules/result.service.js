@@ -15,7 +15,15 @@ class ResultService {
     return oneResult;
   }
 
-  async addResult(result) {
+  async addResult(
+    studentName,
+    attemps,
+    earnPoints,
+    quizResult,
+    quizName,
+    UserId,
+    QuizId
+  ) {
     try {
       const newResult = await this.resultRepo.addResult({
         studentName,
@@ -23,8 +31,9 @@ class ResultService {
         earnPoints,
         quizResult,
         quizName,
+        UserId,
+        QuizId,
       });
-      
 
       return newResult;
     } catch (error) {
@@ -33,11 +42,7 @@ class ResultService {
   }
 
   async updateResult(result, id) {
-    const getResult = await this.getResultById(id);
-
-    if (!getResult) throw new Error("RESULT__DOES_NOT_EXIST");
-
-     await this.resultRepo.updateResult(result, id);
+    await this.resultRepo.updateResult(result, id);
 
     const updatedResult = await this.resultRepo.getResultById(id);
 
@@ -47,8 +52,8 @@ class ResultService {
   async deleteResult(id) {
     try {
       await this.resultRepo.deleteResult(id);
-    } catch (error) {
-      throw new Error("COULD_NOT_DELETE_Result");
+    } catch {
+      throw new Error("COULD_NOT_DELETE_USER");
     }
   }
 }

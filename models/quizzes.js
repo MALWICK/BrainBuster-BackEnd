@@ -6,7 +6,6 @@ const Quiz = sequelize.define(
   {
     id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       autoIncrement: true,
       primaryKey: true,
     },
@@ -21,11 +20,6 @@ const Quiz = sequelize.define(
       type: DataTypes.STRING,
       unique: true,
       allowNull: false,
-    },
-    adminId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      foreignKey: true,
     },
   },
   {
