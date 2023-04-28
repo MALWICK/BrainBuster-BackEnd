@@ -5,7 +5,7 @@ class QuizzesRepository {
     return Quizzes.findAll();
   }
 
-  getOneQuiz(id) {
+  getQuizById(id) {
     return Quizzes.findByPk(id);
   }
 

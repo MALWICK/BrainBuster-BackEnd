@@ -31,14 +31,12 @@ class QuizzesService {
     }
   }
 
-  async updateQuiz(quizToEdit, id) {
-    const quiz = await this.quizRepo.getQuizById(id);
+  async updateQuiz(quiz, id) {
 
-    if (!quiz) throw new Error("Quiz not found");
-
-    await this.resultRepo.updateQuiz(quizToEdit, id);
+    await this.quizRepo.updateQuiz(quiz, id);
 
     const updatedQuiz = await this.quizRepo.getQuizById(id);
+    
     return updatedQuiz;
   }
 

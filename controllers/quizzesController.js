@@ -14,6 +14,7 @@ class QuizController {
 
   getOneQuiz(req, res) {
     this.quizzesService
+      .getOneQuiz(req.params.id)
       .then((quiz) => res.status(200).send(quiz))
       .catch((err) => res.status(500).send(err));
   }
@@ -34,7 +35,7 @@ class QuizController {
 
     this.quizzesService
       .addQuiz(question, answer, quizLink, category, quizName, UserId)
-      .then((quiz) => response.status(201).send(quiz))
+      .then((quiz) => res.status(201).send(quiz))
       .catch((err) => res.status(500).send(err));
     console.log(question, answer, quizLink, category, quizName, UserId);
   }
@@ -43,13 +44,13 @@ class QuizController {
     this.quizzesService
       .updateQuiz(req.body, req.params.id)
       .then((updatedQuiz) => res.status(202).send(updatedQuiz))
-      .catch((error) => res.status(401).send(error));
+      .catch((err) => res.status(403).send("id does not exist"));
   }
 
   deleteQuiz(req, res) {
     this.quizzesService
       .deleteQuiz(req.params.id)
-      .then(() => res.status(200))
+      .then(() => res.sendStatus(202))
       .catch((err) => res.status(500).send(err));
   }
 }

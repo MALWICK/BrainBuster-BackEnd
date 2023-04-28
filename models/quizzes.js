@@ -18,7 +18,6 @@ const Quiz = sequelize.define(
     },
     quizName: {
       type: DataTypes.STRING,
-      unique: true,
       allowNull: false,
     },
   },

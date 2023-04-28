@@ -42,6 +42,7 @@ class ResultService {
   }
 
   async updateResult(result, id) {
+    
     await this.resultRepo.updateResult(result, id);
 
     const updatedResult = await this.resultRepo.getResultById(id);
