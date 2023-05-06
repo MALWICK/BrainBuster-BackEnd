@@ -33,9 +33,9 @@ class UserService {
     }
   }
 
-  async updateUser(userToEdit, id) {
+  async updateUser(user, id) {
  
-    await this.userRepo.updateUser(userToEdit, id);
+    await this.userRepo.updateUser(user, id);
 
     const updatedUser = await this.userRepo.getUserById(id);
 

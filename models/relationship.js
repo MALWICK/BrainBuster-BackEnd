@@ -9,12 +9,6 @@ function relate() {
   user.hasMany(quiz);
   quiz.belongsTo(user);
 
-  user.hasMany(result);
-  result.belongsTo(user);
-
-  quiz.hasMany(result);
-  result.belongsTo(quiz);
-
   sequelize.sync();
 }
 

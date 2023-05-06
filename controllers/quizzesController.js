@@ -20,24 +20,34 @@ class QuizController {
   }
 
   addQuiz(req, res) {
-    const { question, answer, quizLink, category, quizName, UserId } = req.body;
-
-    if (
-      !question ||
-      !answer ||
-      !quizLink ||
-      !category ||
-      !quizName ||
-      !UserId
-    ) {
-      return res.status(401).send({ message: "Missing Quiz Info" });
-    }
+    const {
+      question,
+      option1,
+      option2,
+      option3,
+      option4,
+      answer,
+      quizTimer,
+      quizName,
+      quizImageUrl,
+      UserId,
+    } = req.body;
 
     this.quizzesService
-      .addQuiz(question, answer, quizLink, category, quizName, UserId)
-      .then((quiz) => res.status(201).send(quiz))
+      .addQuiz(
+        question,
+        option1,
+        option2,
+        option3,
+        option4,
+        answer,
+        quizTimer,
+        quizName,
+        quizImageUrl,
+        UserId
+      )
+      .then((user) => res.status(201).send(user))
       .catch((err) => res.status(500).send(err));
-    console.log(question, answer, quizLink, category, quizName, UserId);
   }
 
   updateQuiz(req, res) {

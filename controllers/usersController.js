@@ -22,9 +22,9 @@ class UserController {
   addUser(req, res) {
     const { fullName, emailAddress, password } = req.body;
 
-    if (!(fullName && emailAddress && password)) {
+    /* if (!(fullName && emailAddress && password)) {
       return res.status(406).send({ message: "Missing User Info" });
-    }
+    } */
 
     this.userService
       .addUser(fullName, emailAddress, password)

@@ -15,28 +15,42 @@ class QuizzesService {
     return oneQuiz;
   }
 
-  async addQuiz(question, answer, quizLink, category, quizName, UserId) {
+  async addQuiz(
+    question,
+    option1,
+    option2,
+    option3,
+    option4,
+    answer,
+    quizTimer,
+    quizName,
+    quizImageUrl,
+    UserId
+  ) {
     try {
       const newQuiz = await this.quizRepo.addQuiz({
         question,
+        option1,
+        option2,
+        option3,
+        option4,
         answer,
-        quizLink,
-        category,
+        quizTimer,
         quizName,
+        quizImageUrl,
         UserId,
       });
       return newQuiz;
     } catch (error) {
-      throw new Error("COULD NOT ADD QUIZ");
+      throw new Error(error);
     }
   }
 
   async updateQuiz(quiz, id) {
-
     await this.quizRepo.updateQuiz(quiz, id);
 
     const updatedQuiz = await this.quizRepo.getQuizById(id);
-    
+
     return updatedQuiz;
   }
 

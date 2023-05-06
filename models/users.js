@@ -14,6 +14,7 @@ const User = sequelize.define(
       unique: true,
     },
     password: DataTypes.STRING,
+    bio: DataTypes.STRING,
     isSuperAdmin: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
