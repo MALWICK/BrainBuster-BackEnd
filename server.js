@@ -6,12 +6,13 @@ const logger = require("morgan");
 const cors = require("cors");
 const dotEnv = require("dotenv");
 const specs = require("./services/swagger");
-const swaggerUi = require("swagger-ui-express");
+(swaggerJsdoc = require("swagger-jsdoc")),
+  (swaggerUi = require("swagger-ui-express"));
 dotEnv.config();
 
 const usersRouter = require("./routes/usersRoutes");
 const resultsRouter = require("./routes/resultRoutes");
-const quizRouter = require("./routes/quizzesRoutes")
+const quizRouter = require("./routes/quizzesRoutes");
 const relate = require("./models/relationship");
 
 const app = express();
@@ -31,12 +32,46 @@ app.use("/user", usersRouter);
 app.use("/result", resultsRouter);
 app.use("/quiz", quizRouter);
 
+/* const options = {
+  definition: {
+    openapi: "3.1.0",
+    info: {
+      title: "LogRocket Express API with Swagger",
+      version: "0.1.0",
+      description:
+        "This is a simple CRUD API application made with Express and documented with Swagger",
+      license: {
+        name: "MIT",
+        url: "https://spdx.org/licenses/MIT.html",
+      },
+      contact: {
+        name: "LogRocket",
+        url: "https://logrocket.com",
+        email: "info@email.com",
+      },
+    },
+    servers: [
+      {
+        url: "http://localhost:3000",
+      },
+    ],
+  },
+  apis: ["./routes/*.js"],
+}; */
+
+/* const specs = swaggerJsdoc(options); */
 app.use(
   "/api-docs",
   swaggerUi.serve,
   swaggerUi.setup(specs, { explorer: true })
 );
 
+/* app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(specs, { explorer: true })
+);
+ */
 // error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
