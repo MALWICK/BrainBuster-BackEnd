@@ -20,39 +20,15 @@ class ResultController {
   }
 
   addResult(req, res) {
-    const {
-      studentName,
-      attemps,
-      earnPoints,
-      quizResult,
-      quizName,
-      UserId,
-      QuizId,
-    } = req.body;
+    const { studentName, emailAddress } = req.body;
 
-    if (
-      !studentName ||
-      !attemps ||
-      !quizResult ||
-      !quizName ||
-      !earnPoints ||
-      !UserId ||
-      !QuizId
-    ) {
+    if (!studentName || !emailAddress) {
       res.send("{ Missing Result Info }");
       return;
     }
 
     this.resultService
-      .addResult(
-        studentName,
-        attemps,
-        earnPoints,
-        quizResult,
-        quizName,
-        UserId,
-        QuizId
-      )
+      .addResult(studentName, emailAddress)
       .then((result) => res.status(201).send(result))
       .catch((err) => res.status(500).send(err));
   }

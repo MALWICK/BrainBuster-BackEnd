@@ -10,6 +10,10 @@ const Results = sequelize.define(
       primaryKey: true,
     },
     studentName: DataTypes.STRING,
+    emailAddress: {
+      type: DataTypes.STRING,
+      unique: true,
+    },
     attemps: DataTypes.INTEGER,
     earnPoints: DataTypes.INTEGER,
     quizResult: DataTypes.STRING,

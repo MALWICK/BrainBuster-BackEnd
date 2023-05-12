@@ -15,34 +15,20 @@ class ResultService {
     return oneResult;
   }
 
-  async addResult(
-    studentName,
-    attemps,
-    earnPoints,
-    quizResult,
-    quizName,
-    UserId,
-    QuizId
-  ) {
+  async addResult(studentName, emailAddress) {
     try {
       const newResult = await this.resultRepo.addResult({
         studentName,
-        attemps,
-        earnPoints,
-        quizResult,
-        quizName,
-        UserId,
-        QuizId,
+        emailAddress,
       });
 
       return newResult;
     } catch (error) {
-      throw new Error("COULD_NOT_ADD__RESULT__ERROR");
+      return error;
     }
   }
 
   async updateResult(result, id) {
-    
     await this.resultRepo.updateResult(result, id);
 
     const updatedResult = await this.resultRepo.getResultById(id);

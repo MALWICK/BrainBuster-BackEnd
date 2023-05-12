@@ -148,8 +148,8 @@ const router = require("express").Router();
 
 router.post("/addQuiz", quizzesController.addQuiz.bind(quizzesController));
 
-router.get(
-  "/getAllQuizzes",
+router.post(
+  "/getAllQuestions",
   quizzesController.getAllQuizzes.bind(quizzesController)
 );
 

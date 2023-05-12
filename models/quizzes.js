@@ -16,7 +16,6 @@ const Quiz = sequelize.define(
     option4: { type: DataTypes.STRING, allowNull: false },
     answer: { type: DataTypes.STRING, allowNull: false },
     quizTimer: { type: DataTypes.STRING, allowNull: false },
-    quizLink: DataTypes.STRING,
     quizName: {
       type: DataTypes.STRING,
       allowNull: false,

@@ -5,9 +5,14 @@ class QuizzesService {
     this.quizRepo = new QuizzesRepository();
   }
 
-  async getAllQuizzes() {
-    const allQuizzes = await this.quizRepo.getAllQuizzes();
-    return allQuizzes;
+  async getAllQuizzes(userId, quizName) {
+    try {
+      const allQuizzes = await this.quizRepo.getAllQuizzes(userId, quizName);
+      console.log(allQuizzes);
+      return allQuizzes;
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   async getOneQuiz(id) {

@@ -6,8 +6,9 @@ class QuizController {
   }
 
   getAllQuizzes(req, res) {
+    const { userId, quizName } = req.body;
     this.quizzesService
-      .getAllQuizzes()
+      .getAllQuizzes(userId, quizName)
       .then((quiz) => res.status(200).send(quiz))
       .catch((err) => res.status(500).send(err));
   }
