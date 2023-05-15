@@ -14,7 +14,7 @@ class ResultRepository {
   }
 
   updateResult(result, emailAddress) {
-    return Result.update(result, { where: { emailAddress } });
+    return Result.update(result, { where: { emailAddress: emailAddress } });
   }
 
   deleteResult(id) {
