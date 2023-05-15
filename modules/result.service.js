@@ -10,8 +10,8 @@ class ResultService {
     return allResults;
   }
 
-  async getOneResult(id) {
-    const oneResult = await this.resultRepo.getResultById(id);
+  async getOneResult(emailAddress) {
+    const oneResult = await this.resultRepo.getResultById(emailAddress);
     return oneResult;
   }
 
