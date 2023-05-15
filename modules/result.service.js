@@ -28,10 +28,10 @@ class ResultService {
     }
   }
 
-  async updateResult(result, id) {
-    await this.resultRepo.updateResult(result, id);
+  async updateResult(result, emailAddress) {
+    await this.resultRepo.updateResult(result, emailAddress);
 
-    const updatedResult = await this.resultRepo.getResultById(id);
+    const updatedResult = await this.resultRepo.getResultById(emailAddress);
 
     return updatedResult;
   }

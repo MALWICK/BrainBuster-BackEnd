@@ -156,7 +156,7 @@ router.get(
 
 router.get("/:id", resultsController.getOneResult.bind(resultsController));
 
-router.put("/:id", resultsController.updateResult.bind(resultsController));
+router.put("/:emailAddress", resultsController.updateResult.bind(resultsController));
 
 router.delete("/:id", resultsController.deleteResult.bind(resultsController));
 
