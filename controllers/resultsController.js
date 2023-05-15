@@ -14,7 +14,7 @@ class ResultController {
 
   getOneResult(req, res) {
     this.resultService
-      .getOneResult(req.params.id)
+      .getOneResult(req.body.emailAddress)
       .then((result) => res.status(200).send(result))
       .catch((err) => res.status(500).send(err));
   }

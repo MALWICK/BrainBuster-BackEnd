@@ -5,8 +5,8 @@ class ResultRepository {
     return Result.findAll();
   }
 
-  getResultById(id) {
-    return Result.findByPk(id);
+  getResultById(emailAddress) {
+    return User.findOne({ where: { emailAddress: emailAddress } })
   }
 
   addResult(result) {
@@ -14,7 +14,7 @@ class ResultRepository {
   }
 
   updateResult(result, emailAddress) {
-    return Result.update(result, { where: { emailAddress } });
+    return Result.update(result, { where: { emailAddress: emailAddress } });
   }
 
   deleteResult(id) {
