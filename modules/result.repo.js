@@ -13,8 +13,8 @@ class ResultRepository {
     return Result.create(result);
   }
 
-  updateResult(result, id) {
-    return Result.update(result, { where: { id } });
+  updateResult(result, emailAddress) {
+    return Result.update(result, { where: { emailAddress } });
   }
 
   deleteResult(id) {

@@ -35,9 +35,9 @@ class ResultController {
 
   updateResult(req, res) {
     this.resultService
-      .updateResult(req.body, req.params.id)
+      .updateResult(req.body, req.body.emailAddress)
       .then((updatedResult) => res.status(202).send(updatedResult))
-      .catch((err) => res.status(403).send("id does not exist"));
+      .catch((err) => res.status(403).send(req.body.emailAddress));
   }
 
   deleteResult(req, res) {
