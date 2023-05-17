@@ -15,7 +15,7 @@ const Results = sequelize.define(
       unique: true,
     },
     attemps: DataTypes.INTEGER,
-    earnPoints: DataTypes.INTEGER,
+    earnPoints: DataTypes.STRING,
     quizResult: DataTypes.STRING,
     quizName: DataTypes.STRING,
   },
