@@ -35,9 +35,9 @@ class ResultController {
 
   updateResult(req, res) {
     this.resultService
-      .updateResult(req.body, req.body.emailAddress)
+      .updateResult(req.body, req.params.emailAddress)
       .then((updatedResult) => res.status(202).send(updatedResult))
-      .catch((err) => res.status(403).send(req.body.emailAddress));
+      .catch((err) => res.status(403).send(err));
   }
 
   deleteResult(req, res) {

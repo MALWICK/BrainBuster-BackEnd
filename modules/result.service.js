@@ -29,11 +29,15 @@ class ResultService {
   }
 
   async updateResult(result, emailAddress) {
-    await this.resultRepo.updateResult(result, emailAddress);
+    try {
+      await this.resultRepo.updateResult(result, emailAddress);
 
-    const updatedResult = await this.resultRepo.getResultById(emailAddress);
+      const updatedResult = await this.resultRepo.getResultById(emailAddress);
 
-    return updatedResult;
+      return updatedResult;
+    } catch (error) {
+      return error;
+    }
   }
 
   async deleteResult(id) {
